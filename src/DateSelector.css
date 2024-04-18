@@ -1,0 +1,16 @@
+.date-input {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-main);
+    color: var(--dark-text);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.date-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
