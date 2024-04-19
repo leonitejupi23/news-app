@@ -1,8 +1,9 @@
 import React from 'react';
-import SearchBar from './SearchBar';
-import CategorySelector from './CategorySelector';
-import SourceSelector from './SourceSelector';
-import DateSelector from './DateSelector';
+import SearchBar from '../SearchBar/SearchBar';
+import CategorySelector from '../CategorySelector/CategorySelector';
+import SourceSelector from '../SourceSelector/SourceSelector';
+import DateSelector from '../DateSelector/DateSelector';
+import './Header.css';
 
 const Header = ({
   searchTerm,
@@ -15,13 +16,15 @@ const Header = ({
   handleStartDateChange,
   sources,
 }) => (
+  <>
+  <h1 className='h1-header'>NewsAPI </h1>
   <header className="app-header">
-    <h1>React News</h1>
     <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
     <CategorySelector selectedCategory={selectedCategory} handleCategoryChange={handleCategoryChange} />
     <SourceSelector selectedSource={selectedSource} handleSourceChange={handleSourceChange} sources={sources} />
     <DateSelector startDate={startDate} handleStartDateChange={handleStartDateChange} /> 
   </header>
+  </>
 );
 
 export default Header;

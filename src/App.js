@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Header from './Header';
-import NewsGrid from './NewsGrid';
-import './App.css'
+import Header from './components/Header/Header';
+import NewsGrid from './components/NewsGrid/NewsGrid';
+import './App.css';
 
 const App = () => {
   const [articles, setArticles] = useState([]);
@@ -12,18 +12,17 @@ const App = () => {
   const [selectedSource, setSelectedSource] = useState('');
   const [startDate, setStartDate] = useState('');
   const [error, setError] = useState(null);
-  
 
   useEffect(() => {
     const fetchSources = async () => {
       try {
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}sources`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}sources`, {
           params: {
             apiKey: process.env.REACT_APP_API_KEY,
             language: 'en'
           }
         });
-        setSources(data.sources);
+        setSources(response.data.sources);
       } catch (error) {
         setError(error);
       }
@@ -38,9 +37,9 @@ const App = () => {
         let endpoint = `${process.env.REACT_APP_API_URL}`;
         let params = {
           apiKey: process.env.REACT_APP_API_KEY,
-          language: 'en',
+          language: 'en'
         };
-  
+
         if (searchTerm) {
           endpoint += 'everything';
           params.q = searchTerm;
@@ -58,21 +57,20 @@ const App = () => {
             params.sources = selectedSource;
           }
         }
-  
+
         if (startDate) {
           params.from = startDate;
         }
-  
-        const { data } = await axios.get(endpoint, { params });
-        setArticles(data.articles);
+
+        const response = await axios.get(endpoint, { params });
+        setArticles(response.data.articles);
       } catch (error) {
         setError(`Error fetching news: ${error.response ? error.response.data.message : error.message}`);
       }
     };
-  
+
     fetchArticles();
   }, [searchTerm, selectedCategory, selectedSource, startDate]);
-  
 
   const handleSearch = (event) => setSearchTerm(event.target.value);
   const handleCategoryChange = (event) => setSelectedCategory(event.target.value);
@@ -98,6 +96,7 @@ const App = () => {
       />
       <main>
         <NewsGrid articles={articles} />
+        
       </main>
     </div>
   );

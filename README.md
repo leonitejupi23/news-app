@@ -68,3 +68,66 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# Docker Readme steps how to Dockerize the NewsAPI app
+
+# News App
+
+This is a web application that aggregates news articles from various sources. It's built using [React](https://reactjs.org/) and can be easily set up and run using Docker.
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+* You have installed Docker on your machine. For installation instructions, visit the [official Docker documentation](https://docs.docker.com/get-docker/).
+
+## Running the Application with Docker
+
+To get the application running, follow these steps:
+
+### Building the Docker Image
+
+1. Open a terminal and navigate to the root directory of the project where the Dockerfile is located.
+2. Run the following command to build the Docker image:
+
+    ```shell
+    docker build -t news-app .
+    ```
+
+    This command builds a Docker image named `news-app` based on the instructions in your Dockerfile and the context of your project's directory.
+
+### Running the Docker Container
+
+1. Once the image is built, run the container by executing:
+
+    ```shell
+    docker run -p 3000:3000 -d --name my-news-app news-app
+    ```
+
+    This will start a container named `my-news-app`, running the `news-app` image. It maps port 3000 on your local machine to port 3000 in the Docker container.
+
+2. Verify that the container is running by using:
+
+    ```shell
+    docker ps
+    ```
+
+### Accessing the Application
+
+1. Open your web browser and go to `http://localhost:3000` to view the application.
+
+### Viewing Logs
+
+1. To view the application logs, use:
+
+    ```shell
+    docker logs my-news-app
+    ```
+
+### Stopping the Container
+
+1. To stop the running container, execute:
+
+    ```shell
+    docker stop my-news-app
+    ```
