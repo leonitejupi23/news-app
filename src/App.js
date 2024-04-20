@@ -7,9 +7,11 @@ import './App.css';
 const App = () => {
   const [articles, setArticles] = useState([]);
   const [sources, setSources] = useState([]);
+  const [authors, setAuthors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSource, setSelectedSource] = useState('');
+  const [selectedAuthor, setSelectedAuthor] = useState('');
   const [startDate, setStartDate] = useState('');
   const [error, setError] = useState(null);
 
@@ -39,7 +41,7 @@ const App = () => {
           apiKey: process.env.REACT_APP_API_KEY,
           language: 'en'
         };
-
+  
         if (searchTerm) {
           endpoint += 'everything';
           params.q = searchTerm;
@@ -57,24 +59,30 @@ const App = () => {
             params.sources = selectedSource;
           }
         }
-
+  
         if (startDate) {
           params.from = startDate;
         }
-
+  
         const response = await axios.get(endpoint, { params });
         setArticles(response.data.articles);
+  
+        const uniqueAuthors = Array.from(new Set(response.data.articles.map(article => article.author).filter(author => author)));
+        setAuthors(uniqueAuthors);
+  
       } catch (error) {
         setError(`Error fetching news: ${error.response ? error.response.data.message : error.message}`);
       }
     };
-
+  
     fetchArticles();
   }, [searchTerm, selectedCategory, selectedSource, startDate]);
+  
 
   const handleSearch = (event) => setSearchTerm(event.target.value);
   const handleCategoryChange = (event) => setSelectedCategory(event.target.value);
   const handleSourceChange = (event) => setSelectedSource(event.target.value);
+  const handleAuthorChange = (event) => setSelectedAuthor(event.target.value);
   const handleStartDateChange = (event) => setStartDate(event.target.value);
 
   if (error) {
@@ -90,13 +98,15 @@ const App = () => {
         handleCategoryChange={handleCategoryChange}
         selectedSource={selectedSource}
         handleSourceChange={handleSourceChange}
+        selectedAuthor={selectedAuthor}
+        handleAuthorChange={handleAuthorChange}
         sources={sources}
+        authors={authors}
         startDate={startDate}
         handleStartDateChange={handleStartDateChange}
       />
       <main>
-        <NewsGrid articles={articles} />
-        
+        <NewsGrid articles={articles.filter(article => !selectedAuthor || article.author === selectedAuthor)} />
       </main>
     </div>
   );
