@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import CategorySelector from '../CategorySelector/CategorySelector';
 import SourceSelector from '../SourceSelector/SourceSelector';
@@ -15,16 +15,25 @@ const Header = ({
   startDate,
   handleStartDateChange,
   sources,
-}) => (
-  <>
-  <h1 className='h1-header'>NewsAPI </h1>
-  <header className="app-header">
-    <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
-    <CategorySelector selectedCategory={selectedCategory} handleCategoryChange={handleCategoryChange} />
-    <SourceSelector selectedSource={selectedSource} handleSourceChange={handleSourceChange} sources={sources} />
-    <DateSelector startDate={startDate} handleStartDateChange={handleStartDateChange} /> 
-  </header>
-  </>
-);
+}) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <>
+      <h1 className='h1-header'>NewsAPI</h1>
+      <div className="burger-menu" onClick={toggleMenu}>☰</div>
+      <header className={`form-container ${isMenuOpen ? 'show' : ''}`}>
+          <SearchBar className='search-bar' searchTerm={searchTerm} handleSearch={handleSearch} />
+          <CategorySelector className='category-selector' selectedCategory={selectedCategory} handleCategoryChange={handleCategoryChange} />
+          <SourceSelector className='source-selector' selectedSource={selectedSource} handleSourceChange={handleSourceChange} sources={sources} />
+          <DateSelector className='date-selector' startDate={startDate} handleStartDateChange={handleStartDateChange} /> 
+      </header>
+    </>
+  );
+};
 
 export default Header;

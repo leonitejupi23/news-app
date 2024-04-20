@@ -2,3 +2,9 @@ select {
     flex: 1;
     max-width: 200px;
 }
+
+@media screen and (max-width: 768px) {
+    select {
+        max-width: 100%;
+    }
+}

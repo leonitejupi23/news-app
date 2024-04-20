@@ -3,16 +3,26 @@
   --secondary-color: #8ac4d0;
   --accent-color: #293a88;
   --light-bg: #f7f7f7;
-  --dark-text: #333;
   --light-text: #fff;
   --font-main: 'Roboto', sans-serif;
+  --background-color: rgba(255, 255, 255, 0.9);
+  --blur-intensity: 10px;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --text-color: #333;
+  --font-size-large: 1.5rem;
+  --font-size-medium: 1rem;
+  --font-size-small: 0.875rem;
+  --header-padding: 10px;
+  --burger-menu-right: 20px;
+  --burger-menu-size: 1.5rem;
+  --z-index-high: 1000;
 }
 
 body {
   margin: 0;
   font-family: var(--font-main);
   background-color: var(--light-bg);
-  color: var(--dark-text);
+  color: var(--text-color);
 }
 
 a {
@@ -26,6 +36,7 @@ input, select {
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  outline: 0;
 }
 
 button {
