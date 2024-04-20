@@ -131,3 +131,11 @@ To get the application running, follow these steps:
     ```shell
     docker stop my-news-app
     ```
+
+### Starting the Container
+
+1. To start the running container, execute:
+
+    ```shell
+    docker start my-news-app
+    ```
